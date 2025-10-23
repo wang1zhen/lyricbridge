@@ -1,0 +1,120 @@
+:root {
+  --md-primary: #1a73e8;
+  --md-on-primary: #ffffff;
+  --md-surface: #ffffff;
+  --md-on-surface: #1f1f1f;
+  --md-outline: #dadce0;
+  --md-surface-variant: #f8f9fa;
+
+  font-family: Roboto, "Noto Sans SC", "Segoe UI", Arial, sans-serif;
+  color: var(--md-on-surface);
+  background-color: var(--md-surface-variant);
+}
+
+body { margin: 0; }
+
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 24px 32px;
+}
+
+.top-app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 64px;
+  background: var(--md-primary);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.06);
+}
+.top-app-bar__row { display: flex; align-items: center; height: 64px; padding: 0 20px; }
+.top-app-bar__section { display: flex; align-items: center; gap: 12px; }
+.top-app-bar__title { margin: 0; font-size: 1.25rem; font-weight: 600; letter-spacing: .15px; color: var(--md-on-primary); }
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  background: var(--md-surface);
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.app-header h1 { margin: 0; font-size: 1.6rem; font-weight: 600; }
+.subtitle { margin: 4px 0 0 0; color: #5f6368; font-size: 0.95rem; }
+
+.backend-settings { display: flex; align-items: center; gap: 10px; }
+.backend-settings input { width: 260px; }
+
+label { display: flex; flex-direction: column; gap: 6px; font-size: 0.95rem; color: #3c4043; }
+
+textarea, select, input {
+  background-color: var(--md-surface);
+  border: 1px solid var(--md-outline);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--md-on-surface);
+  font-size: 0.98rem;
+  outline: none;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+textarea:focus, select:focus, input:focus {
+  border-color: var(--md-primary);
+  box-shadow: 0 0 0 3px rgba(26,115,232,0.15);
+}
+
+.btn {
+  background-color: var(--md-surface);
+  color: var(--md-on-surface);
+  border: 1px solid var(--md-outline);
+  border-radius: 999px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover { background-color: #eef2f7; }
+.btn-primary { background-color: var(--md-primary); color: var(--md-on-primary); border: none; }
+.btn-primary:hover { box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.12); }
+
+.search-panel, .results {
+  background-color: var(--md-surface);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.search-panel .field { margin-bottom: 12px; }
+.search-panel #search-text { width: 100%; box-sizing: border-box; }
+
+.row { display: flex; gap: 16px; flex-wrap: wrap; }
+.actions { margin-top: 12px; display: flex; gap: 12px; }
+
+.summary {
+  padding: 10px 12px;
+  background-color: #fdecea;
+  border: 1px solid #f5c2c0;
+  color: #b00020;
+  border-radius: 12px;
+  min-height: 24px;
+  display: none;
+}
+.summary.error { display: block; }
+
+.song-info { margin: 8px 0 4px; }
+.song-title { font-size: 1.2rem; font-weight: 600; margin: 0 0 4px; }
+.song-meta { color: #5f6368; font-size: 0.95rem; }
+
+.lyric-viewer {
+  margin-top: 12px;
+  padding: 16px;
+  background-color: var(--md-surface-variant);
+  border: 1px solid var(--md-outline);
+  border-radius: 12px;
+  height: 360px; /* 固定高度，略微降低 */
+  overflow: auto;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "JetBrains Mono", monospace;
+  font-size: 0.95rem;
+}

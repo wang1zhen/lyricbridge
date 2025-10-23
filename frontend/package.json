@@ -1,0 +1,24 @@
+{
+  "name": "lyricbridge-frontend",
+  "version": "0.1.0",
+  "description": "Electron front-end for the LyricBridge project.",
+  "private": true,
+  "main": "electron/main.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20 <23",
+    "npm": ">=9"
+  },
+  "scripts": {
+    "start": "node ./scripts/dev-server.mjs",
+    "start:log": "ELECTRON_ENABLE_LOGGING=1 electron .",
+    "lint": "echo \"TODO: configure linting\""
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "electron-store": "^8.2.0"
+  },
+  "devDependencies": {
+    "electron": "^38.4.0"
+  }
+}

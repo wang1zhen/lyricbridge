@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>LyricBridge</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src *; img-src 'self' data:;">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="top-app-bar">
+        <div class="top-app-bar__row">
+          <div class="top-app-bar__section">
+            <h1 class="top-app-bar__title">LyricBridge</h1>
+          </div>
+        </div>
+      </header>
+
+      <section class="search-panel">
+        <form id="precise-search-form">
+          <div class="field">
+            <label for="search-text">歌曲链接</label>
+            <input id="search-text" type="text" placeholder="https://music.163.com/song?id=xxxx 或 https://y.qq.com/n/ryqq/songDetail/xxxx" />
+          </div>
+
+          <!-- 固定单曲模式（UI 不暴露来源与高级选项，来源将自动从链接识别） -->
+          <input id="search-type" type="hidden" value="song" />
+
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">获取歌词</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="results">
+        <div id="search-summary" class="summary"></div>
+        <div class="song-info" id="song-info">
+          <div class="song-title" id="song-title"></div>
+          <div class="song-meta" id="song-meta"></div>
+        </div>
+        <pre id="lyric-viewer" class="lyric-viewer" placeholder="歌词将在此显示"></pre>
+        <div class="result-actions">
+          <button class="btn btn-primary" id="export-lyrics">保存歌词</button>
+        </div>
+      </section>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
