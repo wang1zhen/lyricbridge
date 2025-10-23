@@ -63,4 +63,3 @@ package() {
   install -d "${pkgdir}/usr/share/licenses/${pkgname}"
   install -m 644 README.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
-
