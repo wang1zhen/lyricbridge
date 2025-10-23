@@ -4,7 +4,7 @@ pkgver=0.1.0
 pkgrel=1
 pkgdesc="LyricBridge – Electron + FastAPI lyrics tool"
 arch=('x86_64' 'aarch64')
-url="https://github.com/wang1zhen/musicbridge"
+url="https://github.com/wang1zhen/lyricbridge"
 license=('Apache')
 depends=(
   'electron'
@@ -25,12 +25,12 @@ makedepends=('git')
 provides=('lyricbridge')
 conflicts=('lyricbridge-git')
 source=(
-  "lyricbridge-${pkgver}.tar.gz::https://github.com/wang1zhen/musicbridge/archive/refs/tags/v${pkgver}.tar.gz"
+  "lyricbridge-${pkgver}.tar.gz::https://github.com/wang1zhen/lyricbridge/archive/refs/tags/v${pkgver}.tar.gz"
 )
 sha256sums=('SKIP')
 
 package() {
-  cd "${srcdir}/musicbridge-${pkgver}"
+  cd "${srcdir}/lyricbridge-${pkgver}"
 
   install -d "${pkgdir}/usr/lib/lyricbridge"
   cp -r lyricbridge/backend "${pkgdir}/usr/lib/lyricbridge/"
