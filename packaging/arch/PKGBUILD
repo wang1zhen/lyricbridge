@@ -1,0 +1,66 @@
+# Maintainer: wang1zhen <you@example.com>
+pkgname=lyricbridge-git
+pkgver=0.1.0.r0.g0000000
+pkgrel=1
+pkgdesc="LyricBridge – Electron + FastAPI lyrics tool (git)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/wang1zhen/musicbridge"
+license=('custom')
+depends=(
+  'electron'
+  'nodejs'
+  'python'
+  'python-uvicorn'
+  'python-fastapi'
+  'python-httpx'
+  'python-pydantic'
+  'python-pydantic-settings'
+  'python-cachetools'
+  'python-dotenv'
+  'python-beautifulsoup4'
+  'python-lxml'
+  'python-dateutil'
+)
+makedepends=('git')
+provides=('lyricbridge')
+conflicts=('lyricbridge')
+source=("${pkgname}::git+https://github.com/wang1zhen/musicbridge.git")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}/${pkgname}"
+  # Derive version from git tags/commits; fallback to 0.1.0
+  local ver
+  if ver=$(git describe --tags --long --always 2>/dev/null); then
+    ver=${ver#v}
+    ver=${ver//-/.r}
+    printf '%s' "$ver"
+  else
+    printf '%s' "0.1.0.r0.g$(git rev-parse --short HEAD)"
+  fi
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+
+  install -d "${pkgdir}/usr/lib/lyricbridge"
+  cp -r lyricbridge/backend "${pkgdir}/usr/lib/lyricbridge/"
+  cp -r lyricbridge/frontend "${pkgdir}/usr/lib/lyricbridge/"
+
+  # Launcher
+  install -d "${pkgdir}/usr/bin"
+  install -m 755 packaging/arch/lyricbridge.sh "${pkgdir}/usr/bin/lyricbridge"
+
+  # Desktop entry
+  install -d "${pkgdir}/usr/share/applications"
+  install -m 644 packaging/arch/lyricbridge.desktop "${pkgdir}/usr/share/applications/lyricbridge.desktop"
+
+  # Icon (SVG)
+  install -d "${pkgdir}/usr/share/icons/hicolor/scalable/apps"
+  install -m 644 lyricbridge/frontend/renderer/favicon.svg "${pkgdir}/usr/share/icons/hicolor/scalable/apps/lyricbridge.svg"
+
+  # License placeholder (project root README as custom license until formalized)
+  install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -m 644 README.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
+
