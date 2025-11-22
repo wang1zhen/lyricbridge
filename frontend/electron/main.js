@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain, shell, dialog, nativeImage } from "electro
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { promises as fs, existsSync, writeFileSync } from "node:fs";
-import Store from "electron-store";
 
 // __dirname is not available in ESM; reconstruct it from import.meta.url
 const __filename = fileURLToPath(import.meta.url);
@@ -10,9 +9,33 @@ const __dirname = dirname(__filename);
 
 let mainWindow;
 
-const store = new Store({
-  name: "lyricbridge",
-});
+const getStatePath = () => {
+  try {
+    return join(app.getPath("userData"), "lyricbridge-state.json");
+  } catch {
+    // Fallback if userData is not available for some reason
+    return join(app.getPath("home"), ".lyricbridge-state.json");
+  }
+};
+
+const loadState = async () => {
+  try {
+    const content = await fs.readFile(getStatePath(), "utf-8");
+    return JSON.parse(content);
+  } catch {
+    return {};
+  }
+};
+
+const updateState = async (patch) => {
+  try {
+    const current = await loadState();
+    const next = { ...current, ...patch };
+    await fs.writeFile(getStatePath(), JSON.stringify(next), "utf-8");
+  } catch {
+    // Best-effort only; ignore persistence errors
+  }
+};
 
 // Set application name for OS integration
 try { app.setName("LyricBridge"); } catch {}
@@ -102,7 +125,8 @@ ipcMain.handle("app:save-lyrics", async (_evt, payload) => {
   try {
     const defaultFileName = (payload && payload.defaultFileName) || "lyrics.srt";
     const content = (payload && payload.content) || "";
-    const lastSaveDir = store.get("lastSaveDir");
+    const state = await loadState();
+    const lastSaveDir = state && typeof state.lastSaveDir === "string" ? state.lastSaveDir : null;
     const baseDir =
       typeof lastSaveDir === "string" && lastSaveDir && existsSync(lastSaveDir)
         ? lastSaveDir
@@ -116,9 +140,7 @@ ipcMain.handle("app:save-lyrics", async (_evt, payload) => {
     await fs.writeFile(filePath, content, "utf-8");
     try {
       const dir = dirname(filePath);
-      if (dir) {
-        store.set("lastSaveDir", dir);
-      }
+      if (dir) await updateState({ lastSaveDir: dir });
     } catch {}
     return { canceled: false, filePath };
   } catch (e) {
