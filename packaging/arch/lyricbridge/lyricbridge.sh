@@ -79,4 +79,4 @@ export ELECTRON_OZONE_PLATFORM_HINT="auto"
 export LYRICBRIDGE_BACKEND_URL="${BACKEND_URL}"
 
 cd "${FRONTEND_DIR}"
-exec electron .
+exec electron --class=LyricBridge .
