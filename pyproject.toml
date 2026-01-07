@@ -1,6 +1,6 @@
 [project]
 name = "lyricbridge"
-version = "0.1.6"
+version = "0.1.7"
 description = "Python + Flet lyrics tool inspired by 163MusicLyrics"
 readme = "README.md"
 requires-python = ">=3.10"

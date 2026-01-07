@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LyricBridge
+Comment=Lyrics search and export tool
+Exec=/usr/bin/lyricbridge
+Icon=lyricbridge
+Terminal=false
+Type=Application
+Categories=AudioVideo;Utility;
+StartupNotify=true
