@@ -1,0 +1,12 @@
+[project]
+name = "lyricbridge"
+version = "0.1.0"
+description = "Python + Flet lyrics tool inspired by 163MusicLyrics"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "flet[all]==0.80.1",
+    "requests>=2.31.0",
+    "pycryptodome>=3.20.0",
+    "pypinyin>=0.50.0",
+]
